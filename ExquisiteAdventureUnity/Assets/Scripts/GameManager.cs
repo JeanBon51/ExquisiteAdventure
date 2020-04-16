@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     public string withCourageSentence;
     public string efficacitySentence;
     public string rememberSentence;
+    public Font police;
 
     private List<GameObject> textBoxList = new List<GameObject>();
     private int index = 0;
@@ -544,36 +545,56 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Police()
+    {
+        for (int i = 0; i < sentencePanel.GetComponentsInChildren<Text>().Length; i++)
+        {
+            Text a = sentencePanel.GetComponentsInChildren<Text>()[i];
+            a.fontSize = 70;
+            a.resizeTextMaxSize = 100;
+            a.font = police;
+            a.rectTransform.sizeDelta = new Vector2(a.rectTransform.sizeDelta.x, 80);
+
+        }
+    }
 
     private void FillPremadeSentence(STORYPART _storyPart)
     {
+
         switch (_storyPart)
         {
             case STORYPART.PART_0:
                 //textBoxList[0].GetComponent<Text>().text = beginSentence;
                 sentencePanel.GetComponentInChildren<Text>().text = beginSentence;
+                Police();
                 break;
             case STORYPART.PART_1:
                 sentencePanel.GetComponentsInChildren<Text>()[0].text = "Le";
+                Police();
                 break;
             case STORYPART.PART_2:
                 sentencePanel.GetComponentInChildren<Text>().text = thenSentence;
+                Police();
                 break;
             case STORYPART.PART_3:
                 sentencePanel.GetComponentsInChildren<Text>()[1].text = "le " + subjectChoosed;
                 sentencePanel.GetComponentsInChildren<Text>()[2].text = "en";
                 sentencePanel.GetComponentsInChildren<Text>()[4].text = "son";
+                Police();
                 break;
             case STORYPART.PART_4:
                 sentencePanel.GetComponentInChildren<Text>().text = withCourageSentence;
+                Police();
                 break;
             case STORYPART.PART_5:
                 sentencePanel.GetComponentsInChildren<Text>()[2].text = "pour";
                 sentencePanel.GetComponentsInChildren<Text>()[3].text = infVerbChoosed;
                 sentencePanel.GetComponentsInChildren<Text>()[4].text = "le " + subjectChoosed + " !";
+                Police();
                 break;
             case STORYPART.PART_6:
                 sentencePanel.GetComponentInChildren<Text>().text = efficacitySentence;
+                Police();
                 break;
             case STORYPART.PART_7:
                 sentencePanel.GetComponentsInChildren<Text>()[0].text = "d'" + complement2Choosed;
@@ -581,24 +602,31 @@ public class GameManager : MonoBehaviour
                 sentencePanel.GetComponentsInChildren<Text>()[2].text = bodypartChoosed;
                 sentencePanel.GetComponentsInChildren<Text>()[3].text = "du";
                 sentencePanel.GetComponentsInChildren<Text>()[4].text = subjectChoosed;
+                Police();
                 break;
             case STORYPART.PART_8:
                 sentencePanel.GetComponentInChildren<Text>().text = rememberSentence;
+                Police();
                 break;
             case STORYPART.PART_9:
                 sentencePanel.GetComponentsInChildren<Text>()[0].text = "Le " + subjectChoosed;
                 sentencePanel.GetComponentsInChildren<Text>()[1].text = "peut causer maints troubles,";
+                Police();
                 break;
             case STORYPART.PART_10:
                 sentencePanel.GetComponentsInChildren<Text>()[0].text = "mais agit";
                 sentencePanel.GetComponentsInChildren<Text>()[1].text = adjectiveChoosed;
                 sentencePanel.GetComponentsInChildren<Text>()[2].text = "et sans peur,";
+                Police();
                 break;
             case STORYPART.PART_11:
                 sentencePanel.GetComponentsInChildren<Text>()[0].text = "et " + complementChoosed;
                 sentencePanel.GetComponentsInChildren<Text>()[1].text = "te remerciera !";
+                Police();
                 break;
         }
+
+        
     }
 
     private void FillWithNewWord(string _chosenWord, int _textBoxIndex)
@@ -744,13 +772,13 @@ public class GameManager : MonoBehaviour
         //HERO 1
         if (CalculHero1Results().Count == 4)
         {
-            string firstSentence = "C'est un perfect pour moi scribe ! En même temps, c'est ton métier...";
+            string firstSentence = "Hero 1 : C'est un perfect pour moi scribe ! En même temps, c'est ton métier...";
             hero1ResultSentence += firstSentence;
             hero1Found = true; 
         }
         else if (CalculHero1Results().Count > 0)
         {
-            string firstSentence = "Bien joué scribe ! Tu ne t'es pas gourré pour : \n";
+            string firstSentence = "Hero 1 : Bien joué scribe ! Tu ne t'es pas gourré pour : \n";
             hero1ResultSentence += firstSentence;
             foreach(string _word in CalculHero1Results())
             {
@@ -759,7 +787,7 @@ public class GameManager : MonoBehaviour
             hero1Found = false;
         } else if(CalculHero1Results().Count == 0)
         {
-            string firstSentence = "J'ai la vague impression que t'as pas écouté ce que je t'ai raconté...";
+            string firstSentence = "Hero 1 : J'ai la vague impression que t'as pas écouté ce que je t'ai raconté...";
             hero1ResultSentence += firstSentence;
             hero1Found = false;
         }
@@ -767,13 +795,13 @@ public class GameManager : MonoBehaviour
         //HER0 2
         if (CalculHero2Results().Count == 4)
         {
-            string firstSentence = "Voilà ! C'est ce qu'il s'est passé MOT - POUR - MOT pour ma part !";
+            string firstSentence = "Hero 2 : Voilà ! C'est ce qu'il s'est passé MOT - POUR - MOT pour ma part !";
             hero2ResultSentence += firstSentence;
             hero2Found = true;
         }
         else if (CalculHero2Results().Count > 0)
         {
-            string firstSentence = "Perso, on est d'accord pour : \n";
+            string firstSentence = "Hero 2 : Perso, on est d'accord pour : \n";
             hero2ResultSentence += firstSentence;
             foreach (string _word in CalculHero2Results())
             {
@@ -783,7 +811,7 @@ public class GameManager : MonoBehaviour
         }
         else if (CalculHero2Results().Count == 0)
         {
-            string firstSentence = "Mouai, tu ferais mieux de t'appliquer...";
+            string firstSentence = "Hero 2 : Mouai, tu ferais mieux de t'appliquer...";
             hero2ResultSentence += firstSentence;
             hero2Found = false;
         }
@@ -791,13 +819,13 @@ public class GameManager : MonoBehaviour
         //HERO 3
         if (CalculHero3Results().Count == 2)
         {
-            string firstSentence = "Chapeau le scribe ! C'est ce que moi ce que j'avais dit complètement !";
+            string firstSentence = "Hero 3 : Chapeau le scribe ! C'est ce que moi ce que j'avais dit complètement !";
             hero3ResultSentence += firstSentence;
             hero3Found = true;
         }
         else if (CalculHero3Results().Count > 0)
         {
-            string firstSentence = "Nickel ! C'est exactement ce qu'il s'est passé pour : \n";
+            string firstSentence = "Hero 3 : Nickel ! C'est exactement ce qu'il s'est passé pour : \n";
             hero3ResultSentence += firstSentence;
             foreach (string _word in CalculHero3Results())
             {
@@ -807,7 +835,7 @@ public class GameManager : MonoBehaviour
         }
         else if (CalculHero3Results().Count == 0)
         {
-            string firstSentence = "Ta capacité de retranscrire ce que j'ai dit = NEANT...";
+            string firstSentence = "Hero 3 : Ta capacité de retranscrire ce que j'ai dit = NEANT...";
             hero3ResultSentence += firstSentence;
             hero3Found = false;
         }
